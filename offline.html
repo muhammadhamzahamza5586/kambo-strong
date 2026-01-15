@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>You're Offline - Kambo Strong</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+      color: white;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 20px;
+    }
+    
+    .offline-container {
+      max-width: 500px;
+      background: rgba(0, 0, 0, 0.8);
+      padding: 40px;
+      border-radius: 15px;
+      border: 2px solid #008000;
+      box-shadow: 0 10px 30px rgba(0, 128, 0, 0.3);
+    }
+    
+    .offline-icon {
+      font-size: 80px;
+      margin-bottom: 20px;
+      color: #008000;
+    }
+    
+    h1 {
+      font-size: 32px;
+      margin-bottom: 20px;
+      color: #008000;
+    }
+    
+    p {
+      font-size: 16px;
+      line-height: 1.6;
+      margin-bottom: 30px;
+      color: #ccc;
+    }
+    
+    .retry-button {
+      background: #008000;
+      color: white;
+      border: none;
+      padding: 15px 30px;
+      font-size: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin: 10px;
+    }
+    
+    .retry-button:hover {
+      background: #006600;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0, 128, 0, 0.4);
+    }
+    
+    .offline-info {
+      background: rgba(0, 128, 0, 0.1);
+      padding: 20px;
+      border-radius: 8px;
+      margin-top: 20px;
+      border-left: 4px solid #008000;
+    }
+    
+    .status-indicator {
+      display: inline-block;
+      padding: 5px 15px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+    
+    .status-offline {
+      background: #f44336;
+      color: white;
+    }
+    
+    .status-online {
+      background: #4CAF50;
+      color: white;
+    }
+    
+    .cached-content {
+      margin-top: 30px;
+      padding-top: 20px;
+      border-top: 1px solid #444;
+    }
+    
+    .cached-content h3 {
+      color: #008000;
+      margin-bottom: 15px;
+    }
+    
+    .cached-content a {
+      color: #008000;
+      text-decoration: none;
+      display: block;
+      padding: 10px;
+      margin: 5px 0;
+      background: rgba(0, 128, 0, 0.1);
+      border-radius: 5px;
+      transition: background 0.3s ease;
+    }
+    
+    .cached-content a:hover {
+      background: rgba(0, 128, 0, 0.2);
+    }
+  </style>
+</head>
+<body>
+  <div class="offline-container">
+    <div class="offline-icon">🐸</div>
+    <h1>You're Currently Offline</h1>
+    
+    <div id="status" class="status-indicator status-offline">
+      🔴 No Internet Connection
+    </div>
+    
+    <p>
+      It looks like you've lost your internet connection. 
+      Don't worry! Some content is still available from your cache.
+    </p>
+    
+    <button class="retry-button" onclick="checkConnection()">
+      🔄 Check Connection
+    </button>
+    
+    <button class="retry-button" onclick="goHome()">
+      🏠 Go to Cached Homepage
+    </button>
+    
+    <div class="offline-info">
+      <h3>What you can do offline:</h3>
+      <ul style="text-align: left; margin-left: 20px;">
+        <li>Read cached information about Kambo</li>
+        <li>View the main homepage content</li>
+        <li>Browse previously loaded images</li>
+        <li>Submit subscription requests (will sync when online)</li>
+      </ul>
+    </div>
+    
+    <div class="cached-content">
+      <h3>Available Cached Content:</h3>
+      <a href="/">🏠 Homepage</a>
+      <a href="#" onclick="showOfflineInfo()">ℹ️ About Offline Mode</a>
+    </div>
+    
+    <p style="margin-top: 30px; font-size: 14px; color: #888;">
+      Your subscription requests and form data will be automatically synced 
+      when you regain internet connection.
+    </p>
+  </div>
+  
+  <script>
+    // Check connection status
+    function checkConnection() {
+      const statusDiv = document.getElementById('status');
+      
+      if (navigator.onLine) {
+        statusDiv.textContent = '🟢 Connection Restored';
+        statusDiv.className = 'status-indicator status-online';
+        
+        setTimeout(() => {
+          window.location.href = '/';
+        }, 2000);
+      } else {
+        statusDiv.textContent = '🔴 Still Offline';
+        statusDiv.className = 'status-indicator status-offline';
+      }
+    }
+    
+    // Go to homepage
+    function goHome() {
+      window.location.href = '/';
+    }
+    
+    // Show offline information
+    function showOfflineInfo() {
+      alert('Offline Mode: Your browser has cached some content from Kambo Strong. You can browse this content without an internet connection. Any form submissions will be saved and sent when you reconnect.');
+    }
+    
+    // Listen for connection changes
+    window.addEventListener('online', () => {
+      const statusDiv = document.getElementById('status');
+      statusDiv.textContent = '🟢 Connection Restored';
+      statusDiv.className = 'status-indicator status-online';
+      
+      setTimeout(() => {
+        window.location.href = '/';
+      }, 2000);
+    });
+    
+    window.addEventListener('offline', () => {
+      const statusDiv = document.getElementById('status');
+      statusDiv.textContent = '🔴 No Internet Connection';
+      statusDiv.className = 'status-indicator status-offline';
+    });
+    
+    // Auto-check connection every 10 seconds
+    setInterval(checkConnection, 10000);
+    
+    // Initial status check
+    checkConnection();
+  </script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+{
+  "name": "Kambo Strong - Traditional Amazonian Healing",
+  "short_name": "Kambo Strong",
+  "description": "Traditional Amazonian kambo ceremonies in Christchurch, NZ. Holistic healing and wellness services.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#008000",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "icons": [
+    {
+      "src": "Header_Logo.webp",
+      "sizes": "192x192",
+      "type": "image/webp",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "Header_Logo.webp",
+      "sizes": "512x512",
+      "type": "image/webp",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["health", "wellness", "lifestyle"],
+  "lang": "en"
+}
